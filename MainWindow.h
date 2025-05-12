@@ -50,5 +50,7 @@ protected:
 
     /// \brief Pointer to the pie menu widget
     PieMenu *pie_menu = nullptr;
+private slots:
+    void on_loadTheme_clicked();
 };
 #endif // MAINWINDOW_H

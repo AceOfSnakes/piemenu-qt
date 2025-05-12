@@ -161,7 +161,8 @@ void PieMenu::setButtonIcon(uint8_t index, const QString& path)
     img.fill(Qt::transparent);
 
     QPainter painter(&img);
-    painter.setCompositionMode(QPainter::CompositionMode_Source);
+    //painter.setCompositionMode(QPainter::CompositionMode_Source);
+    //painter.setCompositionMode(QPainter::CompositionMode_Xor);
     painter.setOpacity(0.2);
     painter.drawImage(0, 0, QImage(path));
 
@@ -185,7 +186,8 @@ void PieMenu::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
-
+    //painter.setCompositionMode(QPainter::CompositionMode_Xor);
+    //applyPen(painter);
     const auto button_under_mouse = getButtonUnderMouse();
 
     paintPieButtons(painter, button_under_mouse);
@@ -202,6 +204,8 @@ void PieMenu::paintPieButtons(QPainter& painter, int8_t mouseover)
 {
     for (int8_t i = 0; i < button_count; i++)
     {
+        applyPen(painter);
+
         if (mouseover == i)
         {
             if (alternate_colors && (i % 2 == 0))
@@ -224,19 +228,28 @@ void PieMenu::paintPieButtons(QPainter& painter, int8_t mouseover)
                 painter.fillPath(pie_button_paths[i], QBrush(QColor(250, 250, 250)));
             }
         }
-    }
+        // qreal angle = angle_per_button * i + base_angle - angle_per_button * 0.5f;
+        // QPoint reference_point = QPoint(pie_radius * qCos((angle * M_PI) / 180) + pie_radius,
+        //                         pie_radius * qSin((angle * M_PI) / 180) + pie_radius);
 
+        // painter.drawPixmap(QRect((reference_point.x() * 2 + full_size.width() / 2) / 3 - pie_icon_size / 2 + stroke_width, (reference_point.y() * 2 + full_size.height() / 2) / 3 - pie_icon_size / 2 + stroke_width, pie_icon_size, pie_icon_size),
+        //                    buttons_enabled[i] ? default_button_icons[0].pixmap(pie_icon_size, pie_icon_size) : disabled_button_icons[i].pixmap(pie_icon_size, pie_icon_size));
+
+    }
     for (int8_t i = 0; i < button_count; i++)
     {
-        painter.strokePath(pie_button_paths[i], QPen(QColor(200, 200, 200), stroke_width));
+        applyPen(painter);
+        painter.drawPath(pie_button_paths[i]);
+        //painter.strokePath(pie_button_paths[i], QPen(QColor(200, 200, 200), stroke_width));
     }
-
     for (int8_t i = 0; i < button_count; i++)
     {
+        //applyPen(painter);
+        //painter.fillPath(pie_button_paths[i], QBrush(QColor(250, 250, 250)));
         qreal angle = angle_per_button * i + base_angle - angle_per_button * 0.5f;
 
-        QPoint reference_point = QPoint(pie_radius * qCos((angle * M_PI) / 180) + pie_radius,
-                                        pie_radius * qSin((angle * M_PI) / 180) + pie_radius);
+        QPoint reference_point = QPoint(((pie_radius+close_button_radius/2 +stroke_width - pie_icon_size/2)) * qCos((angle * M_PI) / 180) + pie_radius,
+                                        ((pie_radius+close_button_radius/2+ stroke_width - pie_icon_size/2)) * qSin((angle * M_PI) / 180) + pie_radius);
 
         int8_t index = i + 1;
 
@@ -250,9 +263,24 @@ void PieMenu::paintPieButtons(QPainter& painter, int8_t mouseover)
     }
 }
 
+void  PieMenu::applyPen(QPainter& painter) {
+    // painter.setRenderHint(QPainter::Antialiasing);
+    // painter.setRenderHint(QPainter::SmoothPixmapTransform);
+    // painter.setCompositionMode(QPainter::NCompositionModes);
+    //painter.setPen(QPen(QColor(250, 00, 00,0), stroke_width));
+    //painter.setCompositionMode(QPainter::CompositionMode_Xor);
+    //painter.setCompositionMode(QPainter::CompositionMode_Clear);
+    painter.setPen(QPen(QColor(200, 200, 200), stroke_width));
+    //painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+   // painter.setCompositionMode(QPainter::CompositionMode_Source);
+}
+
+
 void PieMenu::paintCloseButton(QPainter& painter, bool mouseover)
 {
-    painter.setPen(QPen(QColor(200, 200, 200), stroke_width));
+    //painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+    applyPen(painter);
+    //painter.setPen(QPen(QColor(200, 200, 200), stroke_width));
 
     if (mouseover)
     {
@@ -260,7 +288,7 @@ void PieMenu::paintCloseButton(QPainter& painter, bool mouseover)
     }
     else
     {
-        painter.setBrush(QBrush(QColor(242, 242, 242)));
+       painter.setBrush(QBrush(QColor(242, 242, 242)));
     }
 
     painter.drawEllipse(QRectF(pie_radius - close_button_radius + stroke_width, pie_radius - close_button_radius + stroke_width,
@@ -272,7 +300,9 @@ void PieMenu::paintCloseButton(QPainter& painter, bool mouseover)
 
 void PieMenu::paintPinButton(QPainter& painter, bool mouseover)
 {
-    painter.setPen(QPen(isPinned ? QColor(150, 150, 150) : QColor(200, 200, 200), stroke_width));
+    applyPen(painter);
+   // painter.setPen(QPen(isPinned ? QColor(150, 150, 150) : QColor(200, 200, 200), stroke_width));
+
 
     if (mouseover)
     {

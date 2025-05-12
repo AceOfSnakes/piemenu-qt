@@ -23,7 +23,12 @@ The current implementation only supports icon buttons but you can modify it to d
 
 ### Which versions of Qt are supported?
 
-The current piemenu-qt release is developed and tested on Qt 6.4.0. I cannot guarantee compatibility with newer or older versions. Just try if it works with your Qt version. If it doesn't, your welcome to open an issue. Maybe we can find a solution.
+Adopted for QT 5+. Window title contains QT version.
+
+Qt5| Qt6
+------------ | ------------
+![Qt5](images/qt5.png) | ![Qt6](images/qt6.png)
+
 
 ### I have found a bug or got an improvement idea, what do I do?
 

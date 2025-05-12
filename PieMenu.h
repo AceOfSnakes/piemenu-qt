@@ -17,12 +17,20 @@
 #define PIEMENU_H
 
 #include <QWidget>
+#include <QPoint>
+#include <QPainter>
+#include <QtMath>
+#include <QICon>
 #include <QPainterPath>
 
 /// \brief A simple pie menu widget for Qt
 class PieMenu : public QWidget
 {
+
     Q_OBJECT
+
+    void  applyPen(QPainter& painter);
+
 public:
     /// \brief Constructor of the PieMenu widget
     /// \param parent: Pointer to the parent widget
