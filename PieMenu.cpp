@@ -272,7 +272,7 @@ void  PieMenu::applyPen(QPainter& painter) {
     //painter.setCompositionMode(QPainter::CompositionMode_Clear);
     painter.setPen(QPen(QColor(200, 200, 200), stroke_width));
     //painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
-   // painter.setCompositionMode(QPainter::CompositionMode_Source);
+    // painter.setCompositionMode(QPainter::CompositionMode_Source);
 }
 
 
@@ -288,7 +288,7 @@ void PieMenu::paintCloseButton(QPainter& painter, bool mouseover)
     }
     else
     {
-       painter.setBrush(QBrush(QColor(242, 242, 242)));
+        painter.setBrush(QBrush(QColor(242, 242, 242)));
     }
 
     painter.drawEllipse(QRectF(pie_radius - close_button_radius + stroke_width, pie_radius - close_button_radius + stroke_width,
@@ -301,7 +301,7 @@ void PieMenu::paintCloseButton(QPainter& painter, bool mouseover)
 void PieMenu::paintPinButton(QPainter& painter, bool mouseover)
 {
     applyPen(painter);
-   // painter.setPen(QPen(isPinned ? QColor(150, 150, 150) : QColor(200, 200, 200), stroke_width));
+    // painter.setPen(QPen(isPinned ? QColor(150, 150, 150) : QColor(200, 200, 200), stroke_width));
 
 
     if (mouseover)
