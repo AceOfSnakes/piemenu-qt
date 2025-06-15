@@ -16,6 +16,7 @@
 #include "PieMenu.h"
 
 #include <QPainter>
+#include <QDebug>
 #include <QApplication>
 #include <QPushButton>
 #include <QMouseEvent>
@@ -93,10 +94,6 @@ void PieMenu::setBaseAngle(int32_t angle) {
     initPainterPaths();
 }
 
-void PieMenu::setAlternateColors(bool value) {
-    alternate_colors = value;
-}
-
 void PieMenu::setStrokeWidth(int32_t value) {
     stroke_width = value;
     full_size = QSize(base_size + QSize(stroke_width * 2, stroke_width * 2));
@@ -118,6 +115,9 @@ void PieMenu::setPieButtonIconSize(uint8_t size) {
     pie_icon_size = size;
 }
 
+void PieMenu::setAlternateColors(bool value) {
+    alternate_colors = value;
+}
 void PieMenu::setCloseButtonIconSize(uint8_t size) {
     close_icon_size = size;
 }
@@ -182,14 +182,14 @@ QGradient PieMenu::getBrush(int mode) {
     switch (mode) {
     case -1:
     case 0:
-        gradient.setColorAt(0, Qt::green);
+        gradient.setColorAt(0, QColor(220, 220, 220));
     break;
     case 1:
-        gradient.setColorAt(0, Qt::blue);
+        gradient.setColorAt(0, QColor(242, 242, 242));
         break;
         // Normal
     default:
-        gradient.setColorAt(0, Qt::magenta);
+        gradient.setColorAt(0, QColor(250, 250, 250));
 
     }
     return gradient;
@@ -210,7 +210,7 @@ void PieMenu::paintPieButtons(QPainter& painter, int8_t mouseover) {
 
         qreal angle = angle_per_button * i + base_angle - angle_per_button * 0.5f;
 
-        QPoint reference_point = QPoint(((pie_radius+close_button_radius / 2 +stroke_width - pie_icon_size / 2)) * qCos((angle * M_PI) / 180) + pie_radius,
+        QPoint reference_point = QPoint(((pie_radius+close_button_radius / 2 + stroke_width - pie_icon_size / 2)) * qCos((angle * M_PI) / 180) + pie_radius,
                                         ((pie_radius+close_button_radius / 2 + stroke_width - pie_icon_size / 2)) * qSin((angle * M_PI) / 180) + pie_radius);
 
         int8_t index = i + 1;

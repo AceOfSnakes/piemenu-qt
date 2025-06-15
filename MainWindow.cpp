@@ -29,12 +29,10 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowTitle(this -> windowTitle().append(". QT version ").append(qVersion()));
     //
     /** button count */
-    QObject::connect(ui->button_count_slider, &QSlider::valueChanged, this, [&](int32_t pos)
-                   {
+    QObject::connect(ui->button_count_slider, &QSlider::valueChanged, this, [&](int32_t pos) {
                        pie_menu->setButtonCount(pos);
 
-                       for (int32_t i = 0; i < pos; i++)
-                       {
+                       for (int32_t i = 0; i < pos; i++) {
                            pie_menu->setButtonIcon(i, ":/icons/image-line-icon.png");
                        }
 
@@ -42,45 +40,46 @@ MainWindow::MainWindow(QWidget *parent)
                        ui->button_count_label->setText(QString::number(pos));
                    });
     /** Base angle */
-    QObject::connect(ui->base_angle_slider, &QSlider::valueChanged, this, [&](int32_t pos)
-                     {
+    QObject::connect(ui->base_angle_slider, &QSlider::valueChanged, this, [&](int32_t pos) {
                          pie_menu->setBaseAngle(pos);
                          pie_menu->update();
                          ui->base_angle_label->setText(QString::number(pos));
                      });
 
     /** Stroke width */
-    QObject::connect(ui->stroke_width_slider, &QSlider::valueChanged, this, [&](int32_t pos)
-                     {
+    QObject::connect(ui->stroke_width_slider, &QSlider::valueChanged, this, [&](int32_t pos) {
                          pie_menu->setStrokeWidth(pos);
                          pie_menu->update();
                          ui->stroke_width_slider->setValue(pos);
                          ui->stroke_width_label->setText(QString("%0 px").arg(QString::number(pos)));
                      });
     /** Close button radius */
-    QObject::connect(ui->close_radius_slider, &QSlider::valueChanged, this, [&](int32_t pos)
-                     {
+    QObject::connect(ui->close_radius_slider, &QSlider::valueChanged, this, [&](int32_t pos) {
                          pie_menu->setCloseButtonRadius(pos);
                          pie_menu->update();
                          ui->close_radius_slider->setValue(pos);
                          ui->close_button_radius_label->setText(QString("%0 px").arg(QString::number(pos)));
                      });
     /** Pin button radius */
-    QObject::connect(ui->pin_radius_slider, &QSlider::valueChanged, this, [&](int32_t pos)
-                     {
+    QObject::connect(ui->pin_radius_slider, &QSlider::valueChanged, this, [&](int32_t pos) {
                          pie_menu->setPinButtonRadius(pos);
                          pie_menu->update();
                          ui->pin_radius_slider->setValue(pos);
                          ui->pin_button_radius_label->setText(QString("%0 px").arg(QString::number(pos)));
                      });
     /** Checkboxes */
-    QObject::connect(ui->disable_button_checkbox, &QCheckBox::clicked, this, [&](bool value)
-                     {
+    QObject::connect(ui->disable_button_checkbox, &QCheckBox::clicked, this, [&](bool value)                   {
                          pie_menu->setButtonEnabled(0, !value);
                          pie_menu->update();
                      });
     /** About QT And Theme */
     QObject::connect(ui->aboutQt, SIGNAL(clicked()), qApp, SLOT(aboutQt()));
+    /** Aleternative */
+    QObject::connect(ui->alternate_colors_checkbox, &QCheckBox::clicked, this, [&](bool value)  {
+         pie_menu->setAlternateColors(value);
+         pie_menu->update();
+    });
+
     initPieMenu();
 }
 
@@ -111,12 +110,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (event->button() == Qt::RightButton)
-    {
+    if (event->button() == Qt::RightButton) {
         pie_menu->display();
     }
-    else
-    {
+    else {
         pie_menu->hideIfNotPinned();
     }
 
@@ -138,7 +135,7 @@ void MainWindow::on_loadTheme_clicked()
 
         QTextStream instream(& file);
         QString style;
-        while (!instream.atEnd()){
+        while (!instream.atEnd()) {
             style = instream.readAll();
         }
         this->setStyleSheet(style);
