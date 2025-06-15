@@ -216,6 +216,8 @@ protected:
 
     /// \brief The size of the pin/unpin button icon in pixels
     uint8_t pin_icon_size = 12;
+private:
+    QGradient getBrush(int mode =0);
 };
 
 #endif // PIEMENU_H

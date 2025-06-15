@@ -19,6 +19,7 @@
 #include <QMouseEvent>
 #include <QFileDialog>
 #include <QTextStream>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -141,6 +142,7 @@ void MainWindow::on_loadTheme_clicked()
             style = instream.readAll();
         }
         this->setStyleSheet(style);
+        //qDebug()<<QPushButton(this).palette();
     }
 }
 
