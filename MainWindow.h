@@ -17,6 +17,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFile>
 #include <PieMenu.h>
 
 QT_BEGIN_NAMESPACE
@@ -35,7 +36,9 @@ public:
 
     /// \brief Default destructor for the main window
     ~MainWindow(void) override;
-
+    
+    void loadTheme(QFile file);
+    
 protected:
     /// \brief Overridden event handler to open the pie menu
     /// \param event: Pointer to the mouse event

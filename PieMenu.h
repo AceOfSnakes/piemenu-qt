@@ -29,7 +29,8 @@ class PieMenu : public QWidget
 
     Q_OBJECT
 
-    void  applyPen(QPainter& painter);
+    void  applyStroke(QPainter& painter, QPainterPath &path);
+    QGradient getBrush(int mode =0);
 
 public:
     /// \brief Constructor of the PieMenu widget
@@ -52,6 +53,18 @@ public:
     /// \param icon: Reference to the icon
     void setCloseButtonIcon(const QIcon& icon);
 
+    /// \brief Sets the icon of the close button
+    /// \param icon: Reference to the icon
+    void setCloseButtonAsRegularButton(bool value) {isCloseAsRegularButton = value; };
+
+    /// \brief Sets the show pin button visible
+    /// \param value: show pin button visible flag
+    void setShowPinButton(bool value) {show_pin_button = value;};
+
+    /// \brief Sets pinned
+    /// \param value: set
+    void setPinned(bool value) {isPinned = value;};
+
     /// \brief Sets the icon of the pin button
     /// \param icon: Reference to the icon
     void setPinButtonIcon(const QIcon& icon);
@@ -68,6 +81,10 @@ public:
     /// \brief Sets the base angle of the pie buttons and updates dependent parameters
     /// \param angle: The new base angle
     void setBaseAngle(int32_t angle);
+
+    /// \brief Sets the pie radius
+    /// \param value: new pie radius
+    void setPieRadius(int32_t value);
 
     /// \brief Setter for the alternate button color property
     /// \param value: The new state of the alternate button color property
@@ -171,12 +188,15 @@ protected:
 
     /// \brief Whether there should be a pin/unpin button
     bool show_pin_button = true;
+    \
+    /// \brief Whether the close button is used as regular button
+    bool isCloseAsRegularButton = false;
 
     /// \brief Whether the pie menu is currently pinned or not
-    bool isPinned = false;
+    bool  isPinned = false;
 
     /// \brief The stroke width of all buttons
-    uint8_t stroke_width = 1;
+    uint8_t stroke_width = 0;
 
     /// \brief The radius of the pie menu
     uint32_t pie_radius = 100;
@@ -217,7 +237,7 @@ protected:
     /// \brief The size of the pin/unpin button icon in pixels
     uint8_t pin_icon_size = 12;
 private:
-    QGradient getBrush(int mode =0);
+    void applyGeometry();
 };
 
 #endif // PIEMENU_H

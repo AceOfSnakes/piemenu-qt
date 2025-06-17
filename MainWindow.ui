@@ -31,50 +31,93 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="3" column="3">
-     <widget class="QLabel" name="close_button_radius_label">
-      <property name="text">
-       <string>35 px</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="3">
-     <widget class="QLabel" name="pin_button_radius_label">
-      <property name="text">
-       <string>13 px</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
+    <item row="6" column="0">
      <widget class="QLabel" name="label_6">
       <property name="text">
        <string>Pin button radius:</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="2">
-     <widget class="QSlider" name="button_count_slider">
-      <property name="minimum">
-       <number>2</number>
+    <item row="4" column="6">
+     <widget class="QCheckBox" name="transparent">
+      <property name="enabled">
+       <bool>false</bool>
       </property>
-      <property name="maximum">
-       <number>10</number>
-      </property>
-      <property name="value">
-       <number>4</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="tickPosition">
-       <enum>QSlider::NoTicks</enum>
-      </property>
-      <property name="tickInterval">
-       <number>1</number>
+      <property name="text">
+       <string>Transparent stroke color</string>
       </property>
      </widget>
     </item>
-    <item row="11" column="0" colspan="4">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_7">
+      <property name="text">
+       <string>Pie radius:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <spacer name="horizontalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="5">
+     <spacer name="horizontalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="5" column="2">
+     <widget class="QLabel" name="close_button_radius_label">
+      <property name="text">
+       <string>35 px</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QLabel" name="base_angle_label">
+      <property name="text">
+       <string>45°</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="2">
+     <widget class="QLabel" name="pin_button_radius_label">
+      <property name="text">
+       <string>13 px</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="19" column="0" colspan="7">
      <layout class="QGridLayout" name="gridLayout_2">
       <property name="leftMargin">
        <number>6</number>
@@ -175,14 +218,30 @@
       </item>
      </layout>
     </item>
-    <item row="1" column="3">
-     <widget class="QLabel" name="base_angle_label">
+    <item row="0" column="2">
+     <widget class="QLabel" name="pieRadiusLabel">
+      <property name="minimumSize">
+       <size>
+        <width>36</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="text">
-       <string>45°</string>
+       <string>100px</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
     </item>
-    <item row="4" column="2">
+    <item row="3" column="6">
+     <widget class="QCheckBox" name="closeButtonAsAction">
+      <property name="text">
+       <string>Use close button as action</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
      <widget class="QSlider" name="pin_radius_slider">
       <property name="minimum">
        <number>8</number>
@@ -204,28 +263,28 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
+    <item row="5" column="0">
      <widget class="QLabel" name="label_5">
       <property name="text">
        <string>Close button radius:</string>
       </property>
      </widget>
     </item>
-    <item row="7" column="2">
-     <widget class="QCheckBox" name="disable_button_checkbox">
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_2">
       <property name="text">
-       <string>Disable first button</string>
+       <string>Button count:</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="3">
-     <widget class="QLabel" name="button_count_label">
+    <item row="5" column="6">
+     <widget class="QCheckBox" name="removePinButton">
       <property name="text">
-       <string>4</string>
+       <string>Force pinned</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="2">
+    <item row="0" column="6">
      <widget class="QCheckBox" name="alternate_colors_checkbox">
       <property name="text">
        <string>Alternate button colors</string>
@@ -235,55 +294,52 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="3">
-     <widget class="QLabel" name="stroke_width_label">
+    <item row="7" column="0" colspan="7">
+     <widget class="Line" name="line_5">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="6">
+     <widget class="QCheckBox" name="disable_button_checkbox">
       <property name="text">
-       <string>1 px</string>
+       <string>Disable first button</string>
       </property>
      </widget>
     </item>
     <item row="2" column="2">
-     <widget class="QSlider" name="stroke_width_slider">
-      <property name="minimum">
-       <number>1</number>
+     <widget class="QLabel" name="button_count_label">
+      <property name="text">
+       <string>4</string>
       </property>
-      <property name="maximum">
-       <number>5</number>
-      </property>
-      <property name="pageStep">
-       <number>1</number>
-      </property>
-      <property name="value">
-       <number>1</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="tickPosition">
-       <enum>QSlider::NoTicks</enum>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
     </item>
-    <item row="3" column="2">
-     <widget class="QSlider" name="close_radius_slider">
-      <property name="minimum">
-       <number>20</number>
-      </property>
-      <property name="maximum">
-       <number>80</number>
-      </property>
-      <property name="value">
-       <number>35</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="tickPosition">
-       <enum>QSlider::NoTicks</enum>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Stroke width:</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="2">
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Base angle:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="4" rowspan="7" colspan="3">
+     <widget class="Line" name="line_4">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
      <widget class="QSlider" name="base_angle_slider">
       <property name="maximum">
        <number>360</number>
@@ -305,28 +361,106 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_2">
+    <item row="4" column="2">
+     <widget class="QLabel" name="stroke_width_label">
       <property name="text">
-       <string>Button count:</string>
+       <string>1 px</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>Base angle:</string>
+    <item row="0" column="1">
+     <widget class="QSlider" name="pieRadiusSlider">
+      <property name="minimum">
+       <number>50</number>
+      </property>
+      <property name="maximum">
+       <number>128</number>
+      </property>
+      <property name="value">
+       <number>100</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>Stroke width:</string>
+    <item row="5" column="1">
+     <widget class="QSlider" name="close_radius_slider">
+      <property name="minimum">
+       <number>20</number>
+      </property>
+      <property name="maximum">
+       <number>65</number>
+      </property>
+      <property name="value">
+       <number>30</number>
+      </property>
+      <property name="sliderPosition">
+       <number>30</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::NoTicks</enum>
       </property>
      </widget>
     </item>
-    <item row="8" column="2">
+    <item row="2" column="1">
+     <widget class="QSlider" name="button_count_slider">
+      <property name="minimum">
+       <number>2</number>
+      </property>
+      <property name="maximum">
+       <number>10</number>
+      </property>
+      <property name="value">
+       <number>4</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::NoTicks</enum>
+      </property>
+      <property name="tickInterval">
+       <number>1</number>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QSlider" name="stroke_width_slider">
+      <property name="minimum">
+       <number>0</number>
+      </property>
+      <property name="maximum">
+       <number>5</number>
+      </property>
+      <property name="pageStep">
+       <number>1</number>
+      </property>
+      <property name="value">
+       <number>1</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::NoTicks</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="0" colspan="2">
+     <widget class="Line" name="line_3">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="1">
      <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>

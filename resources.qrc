@@ -4,5 +4,6 @@
         <file>icons/image-line-icon.png</file>
         <file>icons/pie-chart-icon.png</file>
         <file>icons/pushpin-icon.png</file>
+        <file>settings/black.qss</file>
     </qresource>
 </RCC>

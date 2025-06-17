@@ -72,15 +72,41 @@ MainWindow::MainWindow(QWidget *parent)
                          pie_menu->setButtonEnabled(0, !value);
                          pie_menu->update();
                      });
-    /** About QT And Theme */
-    QObject::connect(ui->aboutQt, SIGNAL(clicked()), qApp, SLOT(aboutQt()));
     /** Aleternative */
     QObject::connect(ui->alternate_colors_checkbox, &QCheckBox::clicked, this, [&](bool value)  {
          pie_menu->setAlternateColors(value);
          pie_menu->update();
     });
+    /** Close button as a regular button */
+    QObject::connect(ui->closeButtonAsAction, &QCheckBox::clicked, this, [&](bool value)  {
+        pie_menu->setCloseButtonAsRegularButton(value);
+        pie_menu->update();
+        ui->closeButtonAsAction->setChecked(value);
+    });
+    /** Show pin button */
+    QObject::connect(ui->removePinButton, &QCheckBox::clicked, this, [&](bool value)  {
+        pie_menu->setShowPinButton(!value);
+        if(value) {
+            pie_menu->setPinned(true);
+        }
+        pie_menu->update();
+        ui->removePinButton->setChecked(value);
+    });
+    /** Pie radius */
+    QObject::connect(ui->pieRadiusSlider, &QSlider::valueChanged, this, [&](int32_t pos) {
+        //initPieMenu();
+        //  pie_menu->display();
+        pie_menu->setPieRadius(pos);
+        // pie_menu->update();
+        // pie_menu->repaint();
+        ui->pieRadiusSlider->setValue(pos);
+        ui->pieRadiusLabel->setText(QString("%0 px").arg(QString::number(pos)));
+    });
+    /** About QT And Theme */
+    QObject::connect(ui->aboutQt, SIGNAL(clicked()), qApp, SLOT(aboutQt()));
 
     initPieMenu();
+    loadTheme(QFile(":/settings/black.qss"));
 }
 
 void MainWindow::initPieMenu()
@@ -91,14 +117,15 @@ void MainWindow::initPieMenu()
 
     emit this->ui->stroke_width_slider->valueChanged(5);
     emit this->ui->button_count_slider->valueChanged(4);
+    emit this->ui->pieRadiusSlider->valueChanged(50);
+    emit this->ui->removePinButton->clicked(true);
+    emit this->ui->closeButtonAsAction->clicked(true);
 
-    for (int32_t i = 0; i < 4; i++)
-    {
+    for (int32_t i = 0; i < 4; i++) {
         pie_menu->setButtonIcon(i, ":/icons/image-line-icon.png");
     }
 
-    QObject::connect(pie_menu, &PieMenu::buttonClicked, this, [&](uint8_t index)
-    {
+    QObject::connect(pie_menu, &PieMenu::buttonClicked, this, [&](uint8_t index) {
         ui->label->setText(QString("You are clicked button #%0").arg(index));
     });
 }
@@ -120,15 +147,8 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
     QMainWindow::mouseReleaseEvent(event);
 }
 
-void MainWindow::on_loadTheme_clicked()
+void MainWindow::loadTheme(QFile file)
 {
-    QFileDialog fd;
-    fd.setOptions(QFileDialog::DontUseNativeDialog | QFileDialog::ReadOnly);
-    fd.exec();
-
-    QString filename = fd.selectedFiles().at(0);
-
-    QFile file(filename);
     if (file.exists()) {
 
         file.open(QIODevice::ReadOnly|QIODevice::Text);
@@ -139,7 +159,16 @@ void MainWindow::on_loadTheme_clicked()
             style = instream.readAll();
         }
         this->setStyleSheet(style);
-        //qDebug()<<QPushButton(this).palette();
     }
+}
+
+void MainWindow::on_loadTheme_clicked()
+{
+    QFileDialog fd;
+    fd.setOptions(QFileDialog::DontUseNativeDialog | QFileDialog::ReadOnly);
+    fd.exec();
+
+    QString filename = fd.selectedFiles().at(0);
+    loadTheme(QFile(filename));
 }
 

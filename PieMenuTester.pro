@@ -24,7 +24,7 @@ FORMS += \
 target.path = ./settings
 target.files = *
 INSTALLS += target
-#INSTALLS += ./settings/*
+INSTALLS += ./settings/*
 #QMAKE_POST_LINK += "cp -f $$OUT_PWD/ settings/*"
 #copyToDir($$PWD/settings, deployment/)
 
