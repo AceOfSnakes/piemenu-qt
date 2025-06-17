@@ -172,3 +172,9 @@ void MainWindow::on_loadTheme_clicked()
     loadTheme(QFile(filename));
 }
 
+
+void MainWindow::on_centerButton_clicked() {
+    pie_menu->move(this->geometry().width() / 2 - pie_menu->geometry().width() / 2,
+                   this->geometry().height() / 2 - pie_menu->geometry().height() / 2);
+}
+

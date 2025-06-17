@@ -55,5 +55,6 @@ protected:
     PieMenu *pie_menu = nullptr;
 private slots:
     void on_loadTheme_clicked();
+    void on_centerButton_clicked();
 };
 #endif // MAINWINDOW_H
