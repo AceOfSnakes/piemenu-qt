@@ -94,13 +94,24 @@ MainWindow::MainWindow(QWidget *parent)
     });
     /** Pie radius */
     QObject::connect(ui->pieRadiusSlider, &QSlider::valueChanged, this, [&](int32_t pos) {
-        //initPieMenu();
-        //  pie_menu->display();
         pie_menu->setPieRadius(pos);
-        // pie_menu->update();
-        // pie_menu->repaint();
         ui->pieRadiusSlider->setValue(pos);
         ui->pieRadiusLabel->setText(QString("%0 px").arg(QString::number(pos)));
+    });
+    /** Move to center */
+    QObject::connect(ui->centerButton, &QPushButton::clicked, this, [&](bool) {
+        pie_menu->move(this->geometry().width() / 2 - pie_menu->geometry().width() / 2,
+                       this->geometry().height() / 2 - pie_menu->geometry().height() / 2);
+    });
+    /** Load theme */
+    QObject::connect(ui->loadTheme, &QPushButton::clicked, this, [&](bool) {
+        QFileDialog fd;
+        fd.setOptions(QFileDialog::DontUseNativeDialog | QFileDialog::ReadOnly);
+        fd.exec();
+
+        QString filename = fd.selectedFiles().at(0);
+        qDebug()<< filename;
+        loadTheme(QFile(filename));
     });
     /** About QT And Theme */
     QObject::connect(ui->aboutQt, SIGNAL(clicked()), qApp, SLOT(aboutQt()));
@@ -150,8 +161,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 void MainWindow::loadTheme(QFile file)
 {
     if (file.exists()) {
-
-        file.open(QIODevice::ReadOnly|QIODevice::Text);
+        file.open(QIODevice::ReadOnly | QIODevice::Text);
 
         QTextStream instream(& file);
         QString style;
@@ -162,19 +172,4 @@ void MainWindow::loadTheme(QFile file)
     }
 }
 
-void MainWindow::on_loadTheme_clicked()
-{
-    QFileDialog fd;
-    fd.setOptions(QFileDialog::DontUseNativeDialog | QFileDialog::ReadOnly);
-    fd.exec();
-
-    QString filename = fd.selectedFiles().at(0);
-    loadTheme(QFile(filename));
-}
-
-
-void MainWindow::on_centerButton_clicked() {
-    pie_menu->move(this->geometry().width() / 2 - pie_menu->geometry().width() / 2,
-                   this->geometry().height() / 2 - pie_menu->geometry().height() / 2);
-}
 

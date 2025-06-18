@@ -227,8 +227,8 @@ void PieMenu::paintPieButtons(QPainter& painter, int8_t mouseover) {
 
         qreal angle = angle_per_button * i + base_angle - angle_per_button * 0.5f;
 
-        QPoint reference_point = QPoint(((pie_radius + close_button_radius / 2 - stroke_width - pie_icon_size / 2)) * qCos((angle * M_PI) / 180) + pie_radius,
-                                        ((pie_radius + close_button_radius / 2 - stroke_width - pie_icon_size / 2)) * qSin((angle * M_PI) / 180) + pie_radius);
+        QPoint reference_point = QPoint(((pie_radius + (close_button_radius + stroke_width / 2) / 2  - pie_icon_size / 2)) * qCos((angle * M_PI) / 180) + pie_radius,
+                                        ((pie_radius + (close_button_radius + stroke_width / 2) / 2  - pie_icon_size / 2)) * qSin((angle * M_PI) / 180) + pie_radius);
 
         int8_t index = i + 1;
 

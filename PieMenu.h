@@ -31,7 +31,7 @@ class PieMenu : public QWidget
 
     void  applyStroke(QPainter& painter, QPainterPath &path);
     QGradient getBrush(int mode =0);
-
+    void applyGeometry();
 public:
     /// \brief Constructor of the PieMenu widget
     /// \param parent: Pointer to the parent widget
@@ -236,8 +236,6 @@ protected:
 
     /// \brief The size of the pin/unpin button icon in pixels
     uint8_t pin_icon_size = 12;
-private:
-    void applyGeometry();
 };
 
 #endif // PIEMENU_H
