@@ -28,11 +28,19 @@ class PieMenu : public QWidget
 {
 
     Q_OBJECT
-
     void  applyStroke(QPainter& painter, QPainterPath &path);
-    QGradient getBrush(int mode =0);
     void applyGeometry();
+
 public:
+    enum RenderFlag {
+        NORMAL = 0x1,
+        ODD = 0x2,
+        EVEN = 0x4,
+        DISABLED = 0x8,
+        STROKE = 0x10,
+        ACTIVE = 0x20
+    };
+
     /// \brief Constructor of the PieMenu widget
     /// \param parent: Pointer to the parent widget
     explicit PieMenu(QWidget *parent = nullptr);
@@ -236,6 +244,8 @@ protected:
 
     /// \brief The size of the pin/unpin button icon in pixels
     uint8_t pin_icon_size = 12;
+private:
+    QBrush getBrush(PieMenu::RenderFlag mode);
 };
 
 #endif // PIEMENU_H

@@ -188,29 +188,31 @@ void PieMenu::paintEvent(QPaintEvent *event) {
     }
 }
 // TBD
-QGradient PieMenu::getBrush(int mode) {
+QBrush PieMenu::getBrush(RenderFlag mode) {
 
-    QPushButton q(this);
+    //QPushButton q(this);
     //(0.3f, -0.4f, 01.35f, 0.3f, -0.4f);
-    QRadialGradient gradient(QPointF(pie_radius, pie_radius), pie_radius);
+    QRadialGradient gradient(QPointF(pie_radius, pie_radius), pie_radius*2);
 
     // qDebug()<< "getBrush" << mode;
-    gradient.setColorAt(1, QColor(190,190,190));
+    gradient.setColorAt(1, QColor(190, 190, 190));
     switch (mode) {
-        // Even
-    case -1:
-    case 0:
+    case NORMAL:
+    case EVEN:
         gradient.setColorAt(0.5, QColor(190, 190, 190));
-    break;
-        // Odd
-    case 1:
+        break;
+    case ODD:
         gradient.setColorAt(0.5, QColor(170, 170, 170));
         break;
-        // Normal
+    case DISABLED:
+        gradient.setColorAt(0.5, QColor(170, 170, 170));
+        break;
+    case STROKE:
+        return QBrush(QColor(130, 130, 130));
+        break;
     default:
         gradient.setColorAt(0.5, QColor(200, 200, 200));
     }
-
     gradient.setColorAt(0, QColor(250,250,250));
     return gradient;
 }
@@ -218,10 +220,12 @@ QGradient PieMenu::getBrush(int mode) {
 void PieMenu::paintPieButtons(QPainter& painter, int8_t mouseover) {
 
     for (int8_t i = 0; i < button_count; i++) {
-            painter.fillPath(pie_button_paths[i],
-                              getBrush( (i % 2) * alternate_colors + (mouseover == i) * 3));
-
+        painter.fillPath(pie_button_paths[i],
+                         getBrush(i == mouseover     ? ACTIVE
+                                  : alternate_colors ? ((i % 2) ? ODD : EVEN)
+                                                     : NORMAL));
     }
+
     for (int8_t i = 0; i < button_count; i++) {
         applyStroke(painter, pie_button_paths[i]);
 
@@ -242,16 +246,14 @@ void PieMenu::paintPieButtons(QPainter& painter, int8_t mouseover) {
 }
 
 void  PieMenu::applyStroke(QPainter& painter, QPainterPath & path) {
-    // stroke color
-    painter.setPen(QPen(QBrush(QColor(130, 130, 130)), stroke_width));
-//    QPainter::CompositionMode save = painter.compositionMode();
+    painter.setPen(QPen(getBrush(STROKE), stroke_width));
     painter.drawPath(path);
-//    painter.setCompositionMode(save);
 }
 
 
 void PieMenu::paintCloseButton(QPainter& painter, bool mouseover) {
-    painter.setBrush(getBrush(mouseover * 3));
+    painter.setBrush(getBrush(mouseover? ACTIVE: NORMAL));
+
     painter.drawEllipse(QRectF(pie_radius - close_button_radius + stroke_width, pie_radius - close_button_radius + stroke_width,
                                close_button_radius * 2, close_button_radius * 2));
 
@@ -260,7 +262,7 @@ void PieMenu::paintCloseButton(QPainter& painter, bool mouseover) {
 }
 
 void PieMenu::paintPinButton(QPainter& painter, bool mouseover) {
-    painter.setBrush(getBrush(mouseover * 3));
+    painter.setBrush(getBrush(mouseover? ACTIVE: NORMAL));
     painter.drawEllipse(QRectF(base_size.width() - pin_button_radius * 2, stroke_width, pin_button_radius * 2, pin_button_radius * 2));
     painter.drawPixmap(QRect(base_size.width() - pin_button_radius - pin_icon_size / 2, stroke_width + pin_button_radius - pin_icon_size / 2,
                              pin_icon_size, pin_icon_size), pin_icon.pixmap(pin_icon_size, pin_icon_size));
@@ -307,7 +309,6 @@ int8_t PieMenu::getButtonUnderMouse() const {
     if (distance_to_close_button < close_button_radius + stroke_width) {
         return close_button_index;
     }
-
     return nearest;
 }
 
